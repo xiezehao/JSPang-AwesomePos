@@ -18,13 +18,17 @@
                     数量：{{totalCount}} &nbsp;&nbsp;&nbsp;&nbsp; 总金额：{{totalMoney}}元
                 </div>
                 <div class="div-btn">
-                    <el-button type="warning">挂单</el-button>
+                    <el-button type="warning" @click="addPendingOrder">挂单</el-button>
                     <el-button type="danger" @click="delAllGoods()">删除</el-button>
                     <el-button type="success" @click="checlOut">结账</el-button>
                 </div>
                 </el-tab-pane>
                 <el-tab-pane label="挂单">
-                挂单
+                    <el-table border style="width:100%;" :data="pendingOrder">
+                        <el-table-column label="商品" prop="goodsName"></el-table-column>
+                        <el-table-column label="量" prop="count" width="50"></el-table-column>
+                        <el-table-column label="金额" prop="price" width="70"></el-table-column>
+                    </el-table>
                 </el-tab-pane>
                 <el-tab-pane label="外卖">
                 外卖
@@ -106,6 +110,7 @@ export default {
             type3Goods:[],
             totalMoney:0,
             totalCount:0,
+            pendingOrder:[],
         }
   },
   created () {
@@ -206,6 +211,10 @@ export default {
           }else{
               this.$message.error("不能空接");
           }
+      },
+      //挂单
+      addPendingOrder(){
+          this.pendingOrder=this.tableData;
       }
   }
 }
